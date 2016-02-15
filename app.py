@@ -3,7 +3,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 import os
 
 app = Flask(__name__)
-app.config.from_object(__name__)
+app.config.from_object(['Local_Database'])
 db = SQLAlchemy(app)
 
 from models import User, Bookmark
