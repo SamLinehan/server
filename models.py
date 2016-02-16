@@ -1,8 +1,6 @@
 from app import db
-from sqlalchemy.dialects.postgresql import JSON
 
 class User(db.Model):
-    user.__table__.drop(self, engine)
     __tablename__ = "user"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -20,7 +18,6 @@ class User(db.Model):
         return '<id {}>'.format(self.id)
 
 class Bookmark(db.Model):
-    bookmark.__table__.drop(self, engine)
     __tablename__ = "bookmark"
 
     id = db.Column(db.Integer, primary_key=True)
