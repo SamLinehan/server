@@ -24,7 +24,7 @@ class User(db.Model):
     social_id = db.Column(db.String())
     nickname = db.Column(db.String())
     email = db.Column(db.String())
-    # bookmarks = db.relationship('Bookmark', backref='user', lazy='dynamic')
+    bookmarks = db.relationship('Bookmark', backref='user', lazy='dynamic')
 
     def __init__(self, social_id, nickname, email):
         self.social_id = social_id
@@ -33,21 +33,21 @@ class User(db.Model):
 
     # def __repr__(self):
     #     return '{}'.format(self.id) + ':' + '{}'.format(self.nickname)
-#
-# class Bookmark(db.Model):
-#     __tablename__ = "bookmark"
-#
-#     id = db.Column(db.Integer, primary_key=True)
-#     search = db.Column(db.String())
-#     date_created = db.Column(db.Date())
-#     notes = db.Column(db.String())
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-#
-#     def __init__(self, search, date_created, notes, user_id):
-#         self.search = search
-#         self.date_created = date_created
-#         self.notes = notes
-#         self.user_id = user_id
+
+class Bookmark(db.Model):
+    __tablename__ = "bookmark"
+
+    id = db.Column(db.Integer, primary_key=True)
+    search = db.Column(db.String())
+    date_created = db.Column(db.Date())
+    notes = db.Column(db.String())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __init__(self, search, date_created, notes, user_id):
+        self.search = search
+        self.date_created = date_created
+        self.notes = notes
+        self.user_id = user_id
 #
 #     def __repr__(self):
 #         return '<id {}>'.format(self.id)
@@ -58,9 +58,10 @@ db.session.commit()
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
 manager.create_api(User, methods=['GET'])
-# manager.create_api(Bookmark, methods)
+manager.create_api(Bookmark, methods=['GET'])
 
 users = User.query.all()
+bookmarks = Bookmark.query.all()
 
 @app.route("/")
 def hello():
@@ -69,6 +70,12 @@ def hello():
 @app.route("/get_user", methods=['GET'])
 def select():
     return "Hello"
+
+@app.route("/add_bookmark", methods=['POST'])
+def add_bookmark():
+    data = request.get_data()
+    print data
+
 
 if __name__ == "__main__":
     app.run()
