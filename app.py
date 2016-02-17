@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from os.path import join, dirname
-from dotenv import load_doten
+from dotenv import load_dotenv
 import flask.ext.restless
 import os
 import json
