@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
+import flask.ext.restless
 import os
 import json
 
 app = Flask(__name__)
+app.config['DEBUG'] = True
 app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 
@@ -46,15 +48,20 @@ class Bookmark(db.Model):
 db.create_all()
 db.session.commit()
 
+manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
+
+manager.create_api(User, methods=['GET'])
+# manager.create_api(Bookmark, methods)
+
 users = User.query.all()
 
 @app.route("/")
 def hello():
     return "Hello World"
 
-@app.route("/get_user")
+@app.route("/get_user", methods=['GET'])
 def select():
-    print users
+    return "Hello"
 
 if __name__ == "__main__":
     app.run()
