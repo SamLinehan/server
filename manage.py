@@ -6,10 +6,10 @@ import os
 
 from app import app, db
 #Development
-# app.config.from_pyfile('config.py')
+app.config.from_pyfile('config.py')
 #Production
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+# dotenv_path = join(dirname(__file__), '.env')
+# load_dotenv(dotenv_path)
 
 migrate = Migrate(app, db)
 manager = Manager(app)
