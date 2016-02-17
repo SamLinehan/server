@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.heroku import Heroku
 from os.path import join, dirname
 from dotenv import load_dotenv
 import flask.ext.restless
@@ -8,12 +9,14 @@ import json
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
+heroku = Heroku(app)
+
 # Development
-# app.config.from_pyfile('config.py')
+app.config.from_pyfile('config.py')
 # app.config.from_envvar('DATABASE_URL')
 # #Production
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+# dotenv_path = join(dirname(__file__), '.env')
+# load_dotenv(dotenv_path)
 
 db = SQLAlchemy(app)
 
