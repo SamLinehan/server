@@ -9,10 +9,10 @@ import json
 app = Flask(__name__)
 app.config['DEBUG'] = True
 # Development
-# app.config.from_pyfile('config.py')
-#Production
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+app.config.from_pyfile('config.py')
+# #Production
+# dotenv_path = join(dirname(__file__), '.env')
+# load_dotenv(dotenv_path)
 
 db = SQLAlchemy(app)
 
