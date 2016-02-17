@@ -1,12 +1,19 @@
 from flask import Flask, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
+from os.path import join, dirname
+from dotenv import load_doten
 import flask.ext.restless
 import os
 import json
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config.from_pyfile('config.py')
+# Development
+# app.config.from_pyfile('config.py')
+#Production
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
 db = SQLAlchemy(app)
 
 
