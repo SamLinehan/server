@@ -11,6 +11,7 @@ import json
 app = Flask(__name__, instance_relative_config=True)
 app.config['DEBUG'] = True
 heroku = Heroku(app)
+CORS(app)
 
 # Development
 app.config.from_pyfile('config.py')
@@ -70,9 +71,9 @@ bookmarks = Bookmark.query.all()
 def hello():
     return "Hello World"
 
-@app.route("/add_bookmark", methods=['POST'])
-def add_bookmark():
-    another_bookmark = db.engine.execute("INSERT INTO bookmark VALUES (default, 'now', 'New search 2', 1, 'Yeahh buddy');")
+# @app.route("/add_bookmark", methods=['POST'])
+# def add_bookmark():
+    # another_bookmark = db.engine.execute("INSERT INTO bookmark VALUES (default, 'now', 'New search 2', 1, 'Yeahh buddy');")
 
     # data = request.get_data()
     # print data
