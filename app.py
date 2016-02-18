@@ -78,47 +78,47 @@ def hello():
 @app.route("/add_bookmark", methods=['POST'])
 def add_bookmark():
 
-    form_data = request.json
+    form_data = json.dumps(request.json)
 
     loop_data = json.loads(form_data)
 
-    print type(form_data) #type string
-    print type(loop_data) # type dict
+    print type(form_data)
+    print type(loop_data)
     print form_data
     print loop_data
 
-    user_id_value = 0
-    title_value = ''
-    notes_value = ''
-    search_value = ''
-
-    for key, elem in loop_data.items():
-        if key is 'user_id':
-            print key
-            user_id = elem
-            print user_id
-        elif key is 'title':
-            print key
-            title = elem
-            print title
-        elif key is 'notes':
-            print key
-            notes = elem
-            print notes
-        elif key is 'search':
-            print key
-            search_value = elem
-            print search
-        else:
-            print "didn't work"
-
-
-    new_bookmark = Bookmark(search_value, "now", notes_value, title_value, 1)
-    db.session.add(new_bookmark)
-    db.session.commit()
-
-    new_bookmark = Bookmark(search_value, 'now', notes_value, title_value, user_id_value)
-    db.session.add(new_bookmark)
+    # user_id_value = 0
+    # title_value = ''
+    # notes_value = ''
+    # search_value = ''
+    #
+    # for key, elem in loop_data.items():
+    #     if key is 'user_id':
+    #         print key
+    #         user_id = elem
+    #         print user_id
+    #     elif key is 'title':
+    #         print key
+    #         title = elem
+    #         print title
+    #     elif key is 'notes':
+    #         print key
+    #         notes = elem
+    #         print notes
+    #     elif key is 'search':
+    #         print key
+    #         search_value = elem
+    #         print search
+    #     else:
+    #         print "didn't work"
+    #
+    #
+    # new_bookmark = Bookmark(search_value, "now", notes_value, title_value, 1)
+    # db.session.add(new_bookmark)
+    # db.session.commit()
+    #
+    # new_bookmark = Bookmark(search_value, 'now', notes_value, title_value, user_id_value)
+    # db.session.add(new_bookmark)
 
     print "Bookmark added"
     return jsonify(result={"status": 200})
