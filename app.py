@@ -73,6 +73,7 @@ def hello():
     return "Hello World"
 
 @app.route("/add_bookmark", methods=['POST'])
+@cross_origin()
 def add_bookmark():
     result = request.get_data()
     print result
