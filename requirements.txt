@@ -1,4 +1,5 @@
 alembic==0.8.4
+aniso8601==1.1.0
 click==6.2
 Flask==0.10.1
 Flask-Cors==2.1.2
@@ -7,6 +8,7 @@ Flask-Login==0.3.2
 Flask-Migrate==1.7.0
 Flask-MoreSQL==0.4
 Flask-OAuth==0.12
+Flask-RESTful==0.3.5
 Flask-Restless==0.17.0
 Flask-Script==2.0.5
 Flask-SQLAlchemy==2.1
@@ -24,6 +26,7 @@ python-dateutil==2.4.2
 python-dotenv==0.3.0
 python-editor==0.5
 python-mimeparse==1.5.1
+pytz==2015.7
 rauth==0.7.2
 requests==2.9.1
 simplejson==3.8.2

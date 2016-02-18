@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
+from flask.ext import restful
+from flask.ext.restful import Api
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.heroku import Heroku
-from flask.ext.cors import CORS
 from os.path import join, dirname
 from dotenv import load_dotenv
 import flask.ext.restless
@@ -12,7 +13,8 @@ import json
 app = Flask(__name__, instance_relative_config=True)
 app.config['DEBUG'] = True
 heroku = Heroku(app)
-CORS(app)
+
+api = restful.Api(app)
 
 # Development
 app.config.from_pyfile('config.py')
@@ -67,13 +69,18 @@ manager.create_api(Bookmark, methods=['GET'])
 users = User.query.all()
 bookmarks = Bookmark.query.all()
 
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+  return response
 
 @app.route("/")
 def hello():
     return "Hello World"
 
 @app.route("/add_bookmark", methods=['POST'])
-@cross_origin()
 def add_bookmark():
     result = request.get_data()
     print result
