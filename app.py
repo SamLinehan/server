@@ -128,6 +128,7 @@ def add_bookmark():
     # another_bookmark = db.engine.execute("INSERT INTO bookmark VALUES (default, 'now', 'New search 2', 1, 'Yeahh buddy');")
 
     print "Bookmark added"
+    return jsonify(result={"status": 200})
 
 if __name__ == "__main__":
     app.run()
