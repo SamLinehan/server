@@ -126,6 +126,32 @@ def add_bookmark():
 
     print form_data
 
+    user_id_value = 0
+    title_value = ''
+    notes_value = ''
+    search_value = ''
+
+    for key, elem in form_data.items():
+        if key is 'user_id':
+            user_id = elem
+            print user_id
+        elif key is 'title':
+            title = elem
+            print title
+        elif key is 'notes':
+            notes = elem
+            print notes
+        elif key is 'search':
+            search = elem
+            print search
+        else:
+            print "didn't work"
+
+    connection = engine.connect()
+    insert = Bookmark.insert()
+
+    conn.execute(insert, id=default, date='now', notes=notes_value, user_id=user_id_value, search=search_value, title=title_value)
+
     # another_bookmark = db.engine.execute("INSERT INTO bookmark VALUES (default, 'now', 'New search 2', 1, 'Yeahh buddy');")
 
     print "Bookmark added"
