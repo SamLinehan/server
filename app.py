@@ -87,7 +87,7 @@ def add_bookmark():
     print form_data
     print loop_data
 
-    user_id_value = 0
+    user_id_value = 1
     title_value = ''
     notes_value = ''
     search_value = ''
