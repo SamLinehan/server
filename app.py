@@ -87,36 +87,36 @@ def add_bookmark():
     print form_data
     print loop_data
 
-    # user_id_value = 0
-    # title_value = ''
-    # notes_value = ''
-    # search_value = ''
-    #
-    # for key, elem in loop_data.items():
-    #     if key is 'user_id':
-    #         print key
-    #         user_id = elem
-    #         print user_id
-    #     elif key is 'title':
-    #         print key
-    #         title = elem
-    #         print title
-    #     elif key is 'notes':
-    #         print key
-    #         notes = elem
-    #         print notes
-    #     elif key is 'search':
-    #         print key
-    #         search_value = elem
-    #         print search
-    #     else:
-    #         print "didn't work"
-    #
-    #
-    # new_bookmark = Bookmark(search_value, "now", notes_value, title_value, 1)
-    # db.session.add(new_bookmark)
-    # db.session.commit()
-    #
+    user_id_value = 0
+    title_value = ''
+    notes_value = ''
+    search_value = ''
+
+    for key, elem in loop_data.items():
+        if key is 'user_id':
+            print key
+            user_id = elem
+            print user_id
+        elif key is 'title':
+            print key
+            title = elem
+            print title
+        elif key is 'notes':
+            print key
+            notes = elem
+            print notes
+        elif key is 'search':
+            print key
+            search_value = elem
+            print search
+        else:
+            print "didn't work"
+
+
+    new_bookmark = Bookmark(search_value, "now", notes_value, title_value, user_id_value)
+    db.session.add(new_bookmark)
+    db.session.commit()
+
     # new_bookmark = Bookmark(search_value, 'now', notes_value, title_value, user_id_value)
     # db.session.add(new_bookmark)
 
