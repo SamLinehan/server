@@ -122,13 +122,13 @@ def hello():
 # @crossdomain(origin='https://twig-of-life.herokuapp.com')
 def add_bookmark():
 
-    result = request.data
+    result = request.get_data()
     print result
 
     # another_bookmark = db.engine.execute("INSERT INTO bookmark VALUES (default, 'now', 'New search 2', 1, 'Yeahh buddy');")
 
     print "Bookmark added"
-    return jsonify(result={"status": 200})
+    return result
 
 if __name__ == "__main__":
     app.run()
