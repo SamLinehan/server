@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.heroku import Heroku
+from flask.ext.cors import CORS
 from os.path import join, dirname
 from dotenv import load_dotenv
 import flask.ext.restless
