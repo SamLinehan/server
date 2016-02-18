@@ -78,7 +78,7 @@ def hello():
 @app.route("/add_bookmark", methods=['POST'])
 def add_bookmark():
 
-    form_data = json.dumps(request.json)
+    form_data = request.json
 
     loop_data = json.loads(form_data)
 
@@ -117,11 +117,8 @@ def add_bookmark():
     db.session.add(new_bookmark)
     db.session.commit()
 
-    # db.engine.execute(Bookmark.insert(), id=default, date='now', notes=notes_value, user_id=user_id_value, search=search_value, title=title_value)
-
     new_bookmark = Bookmark(search_value, 'now', notes_value, title_value, user_id_value)
     db.session.add(new_bookmark)
-    # another_bookmark = db.engine.execute("INSERT INTO bookmark VALUES (default, 'now', 'New search 2', 1, 'Yeahh buddy');")
 
     print "Bookmark added"
     return jsonify(result={"status": 200})
