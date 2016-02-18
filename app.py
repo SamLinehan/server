@@ -7,7 +7,7 @@ import flask.ext.restless
 import os
 import json
 
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
 app.config['DEBUG'] = True
 heroku = Heroku(app)
 
