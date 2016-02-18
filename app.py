@@ -44,12 +44,14 @@ class Bookmark(db.Model):
     search = db.Column(db.String())
     date = db.Column(db.Date())
     notes = db.Column(db.String())
+    title = db.Column(db.String())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, search, date_created, notes, user_id):
+    def __init__(self, search, date_created, notes, title, user_id):
         self.search = search
         self.date_created = date_created
         self.notes = notes
+        self.title = title
         self.user_id = user_id
 
 db.create_all()
