@@ -122,7 +122,7 @@ def hello():
 # @crossdomain(origin='https://twig-of-life.herokuapp.com')
 def add_bookmark():
 
-    result = request.get_data()
+    result = request.data
     print result
 
     # another_bookmark = db.engine.execute("INSERT INTO bookmark VALUES (default, 'now', 'New search 2', 1, 'Yeahh buddy');")
