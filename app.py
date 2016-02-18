@@ -68,10 +68,6 @@ bookmarks = Bookmark.query.all()
 def hello():
     return "Hello World"
 
-@app.route("/get_user", methods=['GET'])
-def select():
-    return "Hello"
-
 @app.route("/add_bookmark", methods=['POST'])
 def add_bookmark():
     another_bookmark = db.engine.execute("INSERT INTO bookmark VALUES (default, 'now', 'New search 2', 1, 'Yeahh buddy');")
