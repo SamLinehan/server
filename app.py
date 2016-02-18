@@ -1,6 +1,4 @@
 from flask import Flask, request, jsonify, make_response, current_app
-# from flask.ext import restful
-# from flask.ext.restful import Api
 from datetime import timedelta
 from functools import update_wrapper
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -11,6 +9,7 @@ from dotenv import load_dotenv
 import flask.ext.restless
 import os
 import json
+import ast
 
 
 app = Flask(__name__, instance_relative_config=True)
@@ -18,58 +17,11 @@ app.config['DEBUG'] = True
 heroku = Heroku(app)
 CORS(app, resources=r'/*', allow_headers='Content-Type')
 
-# api = restful.Api(app)
-
 app.config.from_pyfile('config.py')
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 db = SQLAlchemy(app)
-
-# CORS Snippet
-
-# def crossdomain(origin=None, methods=None, headers=None,
-#                 max_age=21600, attach_to_all=True,
-#                 automatic_options=True):
-#     if methods is not None:
-#         methods = ', '.join(sorted(x.upper() for x in methods))
-#     if headers is not None and not isinstance(headers, basestring):
-#         headers = ', '.join(x.upper() for x in headers)
-#     if not isinstance(origin, basestring):
-#         origin = ', '.join(origin)
-#     if isinstance(max_age, timedelta):
-#         max_age = max_age.total_seconds()
-#
-#     def get_methods():
-#         if methods is not None:
-#             return methods
-#
-#         options_resp = current_app.make_default_options_response()
-#         return options_resp.headers['allow']
-#
-#     def decorator(f):
-#         def wrapped_function(*args, **kwargs):
-#             if automatic_options and request.method == 'OPTIONS':
-#                 resp = current_app.make_default_options_response()
-#             else:
-#                 resp = make_response(f(*args, **kwargs))
-#             if not attach_to_all and request.method != 'OPTIONS':
-#                 return resp
-#
-#             h = resp.headers
-#             h['Access-Control-Allow-Origin'] = origin
-#             h['Access-Control-Allow-Methods'] = get_methods()
-#             h['Access-Control-Max-Age'] = str(max_age)
-#             h['Access-Control-Allow-Credentials'] = 'true'
-#             h['Access-Control-Allow-Headers'] = \
-#                 "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-#             if headers is not None:
-#                 h['Access-Control-Allow-Headers'] = headers
-#             return resp
-#
-#         f.provide_automatic_options = False
-#         return update_wrapper(wrapped_function, f)
-#     return decorator
 
 class User(db.Model):
     __tablename__ = "user"
@@ -96,9 +48,9 @@ class Bookmark(db.Model):
     title = db.Column(db.String())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, search, date_created, notes, title, user_id):
+    def __init__(self, search, date, notes, title, user_id):
         self.search = search
-        self.date_created = date_created
+        self.date = date
         self.notes = notes
         self.title = title
         self.user_id = user_id
@@ -114,44 +66,61 @@ manager.create_api(Bookmark, methods=['GET'])
 users = User.query.all()
 bookmarks = Bookmark.query.all()
 
+# Testing Insert Statement
+# new_bookmark = Bookmark("Chordata", "now", "Testing insert", "Test", 1)
+# db.session.add(new_bookmark)
+# db.session.commit()
+
 @app.route("/")
 def hello():
     return "Hello World"
 
 @app.route("/add_bookmark", methods=['POST'])
-# @crossdomain(origin='https://twig-of-life.herokuapp.com')
 def add_bookmark():
 
     form_data = json.dumps(request.json)
 
+    loop_data = json.loads(form_data)
+
+    print type(form_data) #type string
+    print type(loop_data) # type dict
     print form_data
+    print loop_data
 
     user_id_value = 0
     title_value = ''
     notes_value = ''
     search_value = ''
 
-    for key, elem in form_data.items():
+    for key, elem in loop_data.items():
         if key is 'user_id':
+            print key
             user_id = elem
             print user_id
         elif key is 'title':
+            print key
             title = elem
             print title
         elif key is 'notes':
+            print key
             notes = elem
             print notes
         elif key is 'search':
-            search = elem
+            print key
+            search_value = elem
             print search
         else:
             print "didn't work"
 
-    connection = engine.connect()
-    insert = Bookmark.insert()
 
-    conn.execute(insert, id=default, date='now', notes=notes_value, user_id=user_id_value, search=search_value, title=title_value)
+    new_bookmark = Bookmark(search_value, "now", notes_value, title_value, 1)
+    db.session.add(new_bookmark)
+    db.session.commit()
 
+    # db.engine.execute(Bookmark.insert(), id=default, date='now', notes=notes_value, user_id=user_id_value, search=search_value, title=title_value)
+
+    new_bookmark = Bookmark(search_value, 'now', notes_value, title_value, user_id_value)
+    db.session.add(new_bookmark)
     # another_bookmark = db.engine.execute("INSERT INTO bookmark VALUES (default, 'now', 'New search 2', 1, 'Yeahh buddy');")
 
     print "Bookmark added"
