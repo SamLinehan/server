@@ -43,7 +43,7 @@ class Bookmark(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     search = db.Column(db.String())
-    date_created = db.Column(db.Date())
+    date = db.Column(db.Date())
     notes = db.Column(db.String())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
