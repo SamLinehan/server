@@ -7,6 +7,7 @@ import flask.ext.restless
 import os
 import json
 
+
 app = Flask(__name__, instance_relative_config=True)
 app.config['DEBUG'] = True
 heroku = Heroku(app)
@@ -35,8 +36,6 @@ class User(db.Model):
         self.nickname = nickname
         self.email = email
 
-    # def __repr__(self):
-    #     return '{}'.format(self.id) + ':' + '{}'.format(self.nickname)
 
 class Bookmark(db.Model):
     __tablename__ = "bookmark"
@@ -52,10 +51,7 @@ class Bookmark(db.Model):
         self.date_created = date_created
         self.notes = notes
         self.user_id = user_id
-#
-#     def __repr__(self):
-#         return '<id {}>'.format(self.id)
-#
+
 db.create_all()
 db.session.commit()
 
@@ -67,6 +63,7 @@ manager.create_api(Bookmark, methods=['GET'])
 users = User.query.all()
 bookmarks = Bookmark.query.all()
 
+
 @app.route("/")
 def hello():
     return "Hello World"
@@ -77,8 +74,14 @@ def select():
 
 @app.route("/add_bookmark", methods=['POST'])
 def add_bookmark():
-    data = request.get_data()
-    print data
+    another_bookmark = db.engine.execute("INSERT INTO bookmark VALUES (default, 'now', 'New search 2', 1, 'Yeahh buddy');")
+
+    # data = request.get_data()
+    # print data
+    # new_data = json.loads(data)
+    # print new_data
+    # # for key, value in new_data:
+    # #     print key + ": " + value
 
 
 if __name__ == "__main__":
