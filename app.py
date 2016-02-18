@@ -75,7 +75,7 @@ def hello():
 @app.route("/add_bookmark", methods=['POST'])
 def add_bookmark():
     result = request.get_data()
-    print data
+    print result
     # another_bookmark = db.engine.execute("INSERT INTO bookmark VALUES (default, 'now', 'New search 2', 1, 'Yeahh buddy');")
 
     print "Bookmark added"
