@@ -122,7 +122,7 @@ def hello():
 # @crossdomain(origin='https://twig-of-life.herokuapp.com')
 def add_bookmark():
 
-    form_data = request.get_json()
+    form_data = json.dumps(request.json)
 
     print form_data
 
