@@ -8,7 +8,7 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 import flask.ext.restless
 import os
-import json
+import json, ast
 import ast
 
 
@@ -80,11 +80,15 @@ def add_bookmark():
 
     form_data = json.dumps(request.json)
 
-    loop_data = json.loads(form_data)
+    middle_data = json.loads(form_data)
+
+    loop_data = ast.literal_eval(json.dumps(middle_data))
 
     print type(form_data)
+    print type(middle_data)
     print type(loop_data)
     print form_data
+    print middle_data
     print loop_data
 
     user_id_value = 1
@@ -116,9 +120,6 @@ def add_bookmark():
     new_bookmark = Bookmark(search_value, "now", notes_value, title_value, user_id_value)
     db.session.add(new_bookmark)
     db.session.commit()
-
-    # new_bookmark = Bookmark(search_value, 'now', notes_value, title_value, user_id_value)
-    # db.session.add(new_bookmark)
 
     print "Bookmark added"
     return jsonify(result={"status": 200})
