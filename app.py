@@ -7,6 +7,8 @@ from flask.ext.cors import CORS
 from os.path import join, dirname
 from dotenv import load_dotenv
 from collections import OrderedDict
+from psycopg2.extensions import adapt, register_adapter, AsIs
+
 import flask.ext.restless
 import os
 import json, ast
@@ -105,19 +107,19 @@ def add_bookmark():
         if key == 'user_id':
             global user_id_value
             print key
-            user_id_value = elem
+            user_id_value = adapt(elem).getquoted()
         elif key == 'title':
             global title_value
             print key
-            title_value = elem
+            title_value = adapt(elem).getquoted()
         elif key == 'notes':
             global notes_value
             print key
-            notes_value = elem
+            notes_value = adapt(elem).getquoted()
         elif key == 'search':
             global search_value
             print key
-            search_value = elem
+            search_value = adapt(elem).getquoted()
         else:
             print "didn't work"
 
