@@ -102,19 +102,19 @@ def add_bookmark():
     search_value = ''
 
     for key, elem in loop_data.items():
-        if key is 'user_id':
+        if key == 'user_id':
             global user_id_value
             print key
             user_id_value = elem
-        elif key is 'title':
+        elif key == 'title':
             global title_value
             print key
             title_value = elem
-        elif key is 'notes':
+        elif key == 'notes':
             global notes_value
             print key
             notes_value = elem
-        elif key is 'search':
+        elif key == 'search':
             global search_value
             print key
             search_value = elem
