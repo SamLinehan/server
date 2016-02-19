@@ -98,30 +98,32 @@ def add_bookmark():
     # print almost_data
     print loop_data
 
-    user_id_value = 1
-    title_value = ''
-    notes_value = ''
-    search_value = ''
+    user_id_value = loop_data['user_id']
+    title_value = loop_data['title']
+    notes_value = loop_data['notes']
+    search_value = loop_data['search']
 
-    for key, elem in loop_data.items():
-        if key == 'user_id':
-            global user_id_value
-            print key
-            user_id_value = adapt(elem).getquoted()
-        elif key == 'title':
-            global title_value
-            print key
-            title_value = adapt(elem).getquoted()
-        elif key == 'notes':
-            global notes_value
-            print key
-            notes_value = adapt(elem).getquoted()
-        elif key == 'search':
-            global search_value
-            print key
-            search_value = adapt(elem).getquoted()
-        else:
-            print "didn't work"
+
+
+    # for key, elem in loop_data.items():
+    #     if key == 'user_id':
+    #         global user_id_value
+    #         print key
+    #         user_id_value = adapt(elem).getquoted()
+    #     elif key == 'title':
+    #         global title_value
+    #         print key
+    #         title_value = adapt(elem).getquoted()
+    #     elif key == 'notes':
+    #         global notes_value
+    #         print key
+    #         notes_value = adapt(elem).getquoted()
+    #     elif key == 'search':
+    #         global search_value
+    #         print key
+    #         search_value = adapt(elem).getquoted()
+    #     else:
+    #         print "didn't work"
 
     print user_id_value
     print title_value
