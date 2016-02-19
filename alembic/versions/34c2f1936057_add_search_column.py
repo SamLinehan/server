@@ -17,7 +17,7 @@ import sqlalchemy as sa
 
 
 def upgrade():
-    op.add_column('bookmark', sa.Column('search', sa.String(50)))
+    op.add_column('bookmark', sa.Column('search', sa.String(200)))
 
 
 

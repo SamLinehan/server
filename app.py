@@ -45,7 +45,7 @@ class Bookmark(db.Model):
     __tablename__ = "bookmark"
 
     id = db.Column(db.Integer, primary_key=True)
-    search = db.Column(db.String())
+    search = db.Column(db.String(200))
     date = db.Column(db.Date())
     notes = db.Column(db.String())
     title = db.Column(db.String())
@@ -58,8 +58,8 @@ class Bookmark(db.Model):
         self.title = title
         self.user_id = user_id
 
-db.create_all()
-db.session.commit()
+# db.create_all()
+# db.session.commit()
 
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
@@ -68,11 +68,6 @@ manager.create_api(Bookmark, methods=['GET'])
 
 users = User.query.all()
 bookmarks = Bookmark.query.all()
-
-# Testing Insert Statement
-# new_bookmark = Bookmark("Chordata", "now", "Testing insert", "Test", 1)
-# db.session.add(new_bookmark)
-# db.session.commit()
 
 @app.route("/")
 def hello():
@@ -87,8 +82,6 @@ def add_bookmark():
 
     loop_data = ast.literal_eval(json.dumps(middle_data))
 
-    # loop_data =loop_data = OrderedDict(sorted(almost_data.items(), key=lambda t: t[0]))
-
     print type(form_data)
     print type(middle_data)
     # print type(almost_data)
@@ -98,10 +91,10 @@ def add_bookmark():
     # print almost_data
     print loop_data
 
-    user_id_value = loop_data['user_id']
-    title_value = loop_data['title']
-    notes_value = loop_data['notes']
-    search_value = loop_data['search']
+    user_id_value = str(loop_data['user_id'])
+    title_value = str(loop_data['title'])
+    notes_value = str(loop_data['notes'])
+    search_value = str(loop_data['search'])
 
 
 
