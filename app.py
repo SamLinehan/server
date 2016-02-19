@@ -6,6 +6,7 @@ from flask.ext.heroku import Heroku
 from flask.ext.cors import CORS
 from os.path import join, dirname
 from dotenv import load_dotenv
+from collections import OrderedDict
 import flask.ext.restless
 import os
 import json, ast
@@ -84,11 +85,15 @@ def add_bookmark():
 
     loop_data = ast.literal_eval(json.dumps(middle_data))
 
+    # loop_data =loop_data = OrderedDict(sorted(almost_data.items(), key=lambda t: t[0]))
+
     print type(form_data)
     print type(middle_data)
+    # print type(almost_data)
     print type(loop_data)
     print form_data
     print middle_data
+    # print almost_data
     print loop_data
 
     user_id_value = 1
@@ -98,24 +103,28 @@ def add_bookmark():
 
     for key, elem in loop_data.items():
         if key is 'user_id':
+            global user_id_value
             print key
-            user_id = elem
-            print user_id
+            user_id_value = elem
         elif key is 'title':
+            global title_value
             print key
-            title = elem
-            print title
+            title_value = elem
         elif key is 'notes':
+            global notes_value
             print key
-            notes = elem
-            print notes
+            notes_value = elem
         elif key is 'search':
+            global search_value
             print key
             search_value = elem
-            print search
         else:
             print "didn't work"
 
+    print user_id_value
+    print title_value
+    print notes_value
+    print search_value
 
     new_bookmark = Bookmark(search_value, "now", notes_value, title_value, user_id_value)
     db.session.add(new_bookmark)
